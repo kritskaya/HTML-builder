@@ -11,9 +11,13 @@ process.on('exit', () => {
   console.log('Программа прекращает работу');
 });
 
+process.on('SIGNINT', () => {
+  process.exit(0);
+});
 
+console.log('Введите текст для записи в файл:');
 const recursiveReadLine = () => {
-  rl.question('Введите текст для записи в файл:\n', (answer) => {
+  rl.question('', (answer) => {
     if (answer === 'exit') {
       return rl.close(); 
     }
