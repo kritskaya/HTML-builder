@@ -68,7 +68,11 @@ async function copyDir(srcPath, dstPath) {
   let files = await fsPromises.readdir(dstPath);
 
   for (let file of files) {
-    await fsPromises.rm(path.join(dstPath, file));
+    let stats = await fsPromises.stat(path.join(dstPath, file));
+
+    if (!stats.isDirectory()) {
+      await fsPromises.rm(path.join(dstPath, file));
+    }
   }
 
   files = await fsPromises.readdir(srcPath);
